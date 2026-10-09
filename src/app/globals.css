@@ -1,0 +1,91 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #0e0b09;
+  --color-espresso: #1a1410;
+  --color-walnut: #3d2b1f;
+  --color-ivory: #f4eee4;
+  --color-sand: #e6dccb;
+  --color-stone: #9b8f80;
+  --color-brass: #b8925a;
+  --color-brass-light: #d6b886;
+
+  --font-display: var(--font-cormorant), "Times New Roman", serif;
+  --font-sans: var(--font-manrope), system-ui, sans-serif;
+
+  --ease-luxe: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+html {
+  background: var(--color-ink);
+}
+
+body {
+  background: var(--color-ivory);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--color-brass);
+  color: var(--color-ink);
+}
+
+/* Lenis */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis:not(.lenis-autoToggle).lenis-stopped {
+  overflow: clip;
+}
+.lenis [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+/* Özel imleç etkinken yerel imleci gizle (form alanları hariç) */
+html.has-cursor,
+html.has-cursor * {
+  cursor: none;
+}
+html.has-cursor input,
+html.has-cursor textarea,
+html.has-cursor select {
+  cursor: text;
+}
+
+/* Ahşap/kağıt hissi veren hafif doku */
+.grain {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Fırçalanmış çelik görünümlü kapı kanadı */
+.steel {
+  background:
+    repeating-linear-gradient(90deg, rgb(255 255 255 / 0.025) 0 1px, transparent 1px 3px),
+    linear-gradient(160deg, #3a3531 0%, #1b1714 45%, #2b2622 70%, #141110 100%);
+}
+
+.text-outline {
+  color: transparent;
+  -webkit-text-stroke: 1px var(--outline, var(--color-stone));
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
