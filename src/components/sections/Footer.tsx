@@ -2,7 +2,7 @@
 
 import { motion } from "motion/react";
 import { useLenis } from "lenis/react";
-import { nav, site } from "@/content/site";
+import { contactLinks, nav, site } from "@/content/site";
 import { easeLuxe } from "@/lib/motion";
 import { Logo } from "@/components/ui/Logo";
 import { ArrowUp, Instagram, WhatsApp } from "@/components/ui/Icons";
@@ -36,23 +36,31 @@ export function Footer() {
         <div className="lg:col-span-3">
           <p className="text-[10px] font-semibold tracking-[0.3em] text-brass-light uppercase">İletişim</p>
           <ul className="mt-5 space-y-3 text-sm text-ivory/75">
-            <li>
-              <a href={site.contact.phoneHref} className="transition-colors hover:text-brass-light">{site.contact.phone}</a>
-            </li>
-            <li>
-              <a href={`mailto:${site.contact.email}`} className="transition-colors hover:text-brass-light">{site.contact.email}</a>
-            </li>
-            <li>{site.contact.address}</li>
+            {contactLinks.phone && (
+              <li>
+                <a href={contactLinks.phone} className="transition-colors hover:text-brass-light">{site.contact.phone}</a>
+              </li>
+            )}
+            {contactLinks.email && (
+              <li>
+                <a href={contactLinks.email} className="transition-colors hover:text-brass-light">{site.contact.email}</a>
+              </li>
+            )}
+            {site.contact.address && <li>{site.contact.address}</li>}
           </ul>
         </div>
 
         <div className="flex gap-3 lg:col-span-2 lg:justify-end">
-          <a href={site.contact.instagram} aria-label="Instagram" className="h-fit rounded-full border border-ivory/20 p-3 transition-colors hover:border-brass hover:bg-brass hover:text-ink">
-            <Instagram className="h-5 w-5" />
-          </a>
-          <a href={`https://wa.me/${site.contact.whatsapp}`} aria-label="WhatsApp" className="h-fit rounded-full border border-ivory/20 p-3 transition-colors hover:border-brass hover:bg-brass hover:text-ink">
-            <WhatsApp className="h-5 w-5" />
-          </a>
+          {contactLinks.instagram && (
+            <a href={contactLinks.instagram} aria-label="Instagram" className="h-fit rounded-full border border-ivory/20 p-3 transition-colors hover:border-brass hover:bg-brass hover:text-ink">
+              <Instagram className="h-5 w-5" />
+            </a>
+          )}
+          {contactLinks.whatsapp && (
+            <a href={contactLinks.whatsapp} aria-label="WhatsApp" className="h-fit rounded-full border border-ivory/20 p-3 transition-colors hover:border-brass hover:bg-brass hover:text-ink">
+              <WhatsApp className="h-5 w-5" />
+            </a>
+          )}
         </div>
       </div>
 

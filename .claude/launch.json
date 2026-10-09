@@ -4,8 +4,20 @@
     {
       "name": "dev",
       "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "dev"],
+      "runtimeArgs": [
+        "run",
+        "dev"
+      ],
       "port": 3000
+    },
+    {
+      "name": "static",
+      "runtimeExecutable": "node",
+      "runtimeArgs": [
+        "-e",
+        "const h=require('http'),f=require('fs'),p=require('path');const r=p.resolve('out');const t={'.html':'text/html; charset=utf-8','.js':'text/javascript','.css':'text/css','.svg':'image/svg+xml','.txt':'text/plain','.woff2':'font/woff2'};h.createServer((q,s)=>{let fp=p.join(r,decodeURIComponent(q.url.split('?')[0]));if(!fp.startsWith(r)){s.writeHead(403);return s.end()}if(f.existsSync(fp)&&f.statSync(fp).isDirectory())fp=p.join(fp,'index.html');if(!f.existsSync(fp)){s.writeHead(404,{'content-type':'text/html'});return f.createReadStream(p.join(r,'404.html')).pipe(s)}s.writeHead(200,{'content-type':t[p.extname(fp)]||'application/octet-stream'});f.createReadStream(fp).pipe(s)}).listen(4173)"
+      ],
+      "port": 4173
     }
   ]
 }

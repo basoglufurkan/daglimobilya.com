@@ -3,7 +3,7 @@
 import { useEffect, useState, type MouseEvent } from "react";
 import { AnimatePresence, motion, useMotionValueEvent, useScroll } from "motion/react";
 import { useLenis } from "lenis/react";
-import { nav, site } from "@/content/site";
+import { contactLinks, nav, site } from "@/content/site";
 import { easeCurtain, easeLuxe } from "@/lib/motion";
 import { useScrollLock } from "@/lib/useScrollLock";
 import { useIntro } from "@/components/providers/Providers";
@@ -142,16 +142,20 @@ export function Header() {
               className="flex items-end justify-between border-t border-ivory/15 pt-6 text-sm text-ivory/70"
             >
               <div className="space-y-1">
-                <a href={site.contact.phoneHref} className="block">{site.contact.phone}</a>
-                <a href={`mailto:${site.contact.email}`} className="block">{site.contact.email}</a>
+                {contactLinks.phone && <a href={contactLinks.phone} className="block">{site.contact.phone}</a>}
+                {contactLinks.email && <a href={contactLinks.email} className="block">{site.contact.email}</a>}
               </div>
               <div className="flex gap-3">
-                <a href={site.contact.instagram} aria-label="Instagram" className="rounded-full border border-ivory/20 p-2.5">
-                  <Instagram className="h-4 w-4" />
-                </a>
-                <a href={`https://wa.me/${site.contact.whatsapp}`} aria-label="WhatsApp" className="rounded-full border border-ivory/20 p-2.5">
-                  <WhatsApp className="h-4 w-4" />
-                </a>
+                {contactLinks.instagram && (
+                  <a href={contactLinks.instagram} aria-label="Instagram" className="rounded-full border border-ivory/20 p-2.5">
+                    <Instagram className="h-4 w-4" />
+                  </a>
+                )}
+                {contactLinks.whatsapp && (
+                  <a href={contactLinks.whatsapp} aria-label="WhatsApp" className="rounded-full border border-ivory/20 p-2.5">
+                    <WhatsApp className="h-4 w-4" />
+                  </a>
+                )}
               </div>
             </motion.div>
           </motion.div>

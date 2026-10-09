@@ -2,7 +2,7 @@
 
 import { useEffect, useState, type FormEvent } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { collections, site } from "@/content/site";
+import { collections, contactLinks, site } from "@/content/site";
 import { easeLuxe } from "@/lib/motion";
 import { INTEREST_EVENT } from "./Collections";
 import { Clock, Instagram, Mail, Phone, Pin, WhatsApp } from "@/components/ui/Icons";
@@ -62,16 +62,22 @@ export function Contact() {
       "",
       String(data.get("mesaj") || ""),
     ].filter((l) => l !== null);
-    window.open(`https://wa.me/${site.contact.whatsapp}?text=${encodeURIComponent(lines.join("\n"))}`, "_blank", "noopener");
+    const body = encodeURIComponent(lines.join("\n"));
+    // WhatsApp numarası girilmişse mesaj WhatsApp'ta, değilse e-posta uygulamasında açılır.
+    if (contactLinks.whatsapp) {
+      window.open(`${contactLinks.whatsapp}?text=${body}`, "_blank", "noopener");
+    } else {
+      window.open(`${contactLinks.email}?subject=${encodeURIComponent("Web sitesinden mesaj")}&body=${body}`, "_self");
+    }
     setSent(true);
   };
 
   const info = [
-    { icon: Phone, label: "Telefon", value: site.contact.phone, href: site.contact.phoneHref },
-    { icon: Mail, label: "E-posta", value: site.contact.email, href: `mailto:${site.contact.email}` },
+    { icon: Phone, label: "Telefon", value: site.contact.phone, href: contactLinks.phone },
+    { icon: Mail, label: "E-posta", value: site.contact.email, href: contactLinks.email },
     { icon: Pin, label: "Atölye", value: site.contact.address },
     { icon: Clock, label: "Çalışma Saatleri", value: site.contact.hours },
-  ];
+  ].filter((item) => item.value);
 
   return (
     <section id="iletisim" className="relative bg-ivory px-5 py-28 sm:px-10 sm:py-40">
@@ -113,12 +119,16 @@ export function Contact() {
           </ul>
 
           <div className="mt-10 flex gap-3">
-            <a href={site.contact.instagram} aria-label="Instagram" className="rounded-full border border-walnut/25 p-3 text-walnut transition-colors hover:border-brass hover:bg-brass hover:text-ink">
-              <Instagram className="h-5 w-5" />
-            </a>
-            <a href={`https://wa.me/${site.contact.whatsapp}`} aria-label="WhatsApp" className="rounded-full border border-walnut/25 p-3 text-walnut transition-colors hover:border-brass hover:bg-brass hover:text-ink">
-              <WhatsApp className="h-5 w-5" />
-            </a>
+            {contactLinks.instagram && (
+              <a href={contactLinks.instagram} aria-label="Instagram" className="rounded-full border border-walnut/25 p-3 text-walnut transition-colors hover:border-brass hover:bg-brass hover:text-ink">
+                <Instagram className="h-5 w-5" />
+              </a>
+            )}
+            {contactLinks.whatsapp && (
+              <a href={contactLinks.whatsapp} aria-label="WhatsApp" className="rounded-full border border-walnut/25 p-3 text-walnut transition-colors hover:border-brass hover:bg-brass hover:text-ink">
+                <WhatsApp className="h-5 w-5" />
+              </a>
+            )}
           </div>
         </div>
 
@@ -175,11 +185,12 @@ export function Contact() {
                 type="submit"
                 className="group flex items-center justify-center gap-3 rounded-full bg-ink px-8 py-4 text-[12px] font-bold tracking-[0.16em] text-ivory uppercase transition-colors duration-500 hover:bg-brass hover:text-ink"
               >
-                <WhatsApp className="h-5 w-5" />
-                WhatsApp ile Gönder
+                {contactLinks.whatsapp ? <WhatsApp className="h-5 w-5" /> : <Mail className="h-5 w-5" />}
+                {contactLinks.whatsapp ? "WhatsApp ile Gönder" : "Mesajı Gönder"}
               </button>
               <p className="max-w-[16rem] text-xs leading-relaxed text-walnut/70">
-                Gönder&apos;e bastığınızda mesajınız WhatsApp&apos;ta hazır olarak açılır.
+                Gönder&apos;e bastığınızda mesajınız {contactLinks.whatsapp ? "WhatsApp'ta" : "e-posta uygulamanızda"} hazır
+                olarak açılır.
               </p>
             </div>
 
@@ -193,7 +204,8 @@ export function Contact() {
                   role="status"
                   className="mt-6 border-l-2 border-brass pl-4 text-sm text-walnut"
                 >
-                  Teşekkürler! WhatsApp penceresinde mesajınızı göndermeyi unutmayın.
+                  Teşekkürler! Açılan {contactLinks.whatsapp ? "WhatsApp" : "e-posta"} penceresinde mesajınızı göndermeyi
+                  unutmayın.
                 </motion.p>
               )}
             </AnimatePresence>

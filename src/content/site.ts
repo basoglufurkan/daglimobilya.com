@@ -16,15 +16,22 @@ export const site = {
     { name: "Bülent Dağlı", role: "Kurucu Ortak", initials: "B" },
   ],
   nextGeneration: { name: "Mehmet Dağlı", role: "Yeni Nesil", initials: "M" },
+  // Boş bırakılan bilgiler sitede gösterilmez.
   contact: {
-    phone: "+90 5XX XXX XX XX", // TODO: gerçek telefon numarası
-    phoneHref: "tel:+905000000000", // TODO
-    whatsapp: "905000000000", // TODO: başında + olmadan, ülke koduyla (örn. 905321234567)
-    email: "info@daglimobilya.com", // TODO: gerçek e-posta adresi
-    address: "Atölye adresi buraya gelecek", // TODO
-    hours: "Pazartesi – Cumartesi · 09:00 – 19:00", // TODO
-    instagram: "#", // TODO: Instagram profil bağlantısı
+    phone: "", // TODO: örn. "+90 532 123 45 67"
+    whatsapp: "", // TODO: başında + olmadan, ülke koduyla (örn. "905321234567")
+    email: "info@daglimobilya.com", // TODO: gerçek e-posta adresi olduğunu doğrulayın
+    address: "", // TODO: atölye adresi
+    hours: "", // TODO: örn. "Pazartesi – Cumartesi · 09:00 – 19:00"
+    instagram: "", // TODO: Instagram profil bağlantısı
   },
+};
+
+export const contactLinks = {
+  phone: site.contact.phone ? `tel:${site.contact.phone.replace(/[^\d+]/g, "")}` : "",
+  whatsapp: site.contact.whatsapp ? `https://wa.me/${site.contact.whatsapp}` : "",
+  email: site.contact.email ? `mailto:${site.contact.email}` : "",
+  instagram: site.contact.instagram,
 };
 
 export const nav = [
@@ -62,7 +69,7 @@ export const manifesto = {
     { value: 2, label: "Kurucu usta, tek imza" },
     { value: 100, prefix: "%", label: "Ölçüye özel üretim" },
     { text: "A", label: "Kalite malzeme ve işçilik" },
-    { value: 25, suffix: "+", label: "Yıllık tecrübe" }, // TODO: gerçek tecrübe yılı
+    { value: 2, suffix: " nesil", label: "Aileden gelen ustalık" }, // TODO: istenirse gerçek tecrübe yılıyla değiştirin
   ] as { value?: number; text?: string; prefix?: string; suffix?: string; label: string }[],
 };
 

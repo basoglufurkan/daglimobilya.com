@@ -1,9 +1,8 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
-  cacheComponents: true,
-  partialPrefetching: true,
+  // GitHub Pages için statik HTML çıktısı (out/ klasörü).
+  output: "export",
   images: {
     // Görseller Unsplash CDN'i üzerinden boyutlandırılır (bkz. src/lib/image-loader.ts).
     loader: "custom",
