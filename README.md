@@ -52,3 +52,21 @@ src/
   content/site.ts      Tüm site içeriği
   lib/                 Yardımcılar (görsel yükleyici, kaydırma kilidi)
 ```
+
+## Yayın (GitHub Pages)
+
+Site **www.daglimobilya.com** adresinde GitHub Pages ile yayınlanır. `main` dalına her
+gönderimde `.github/workflows/deploy.yml` siteyi derleyip (`out/` klasörü) otomatik yayınlar.
+
+**Natro DNS kayıtları** (alan adı: `daglimobilya.com`):
+
+| Tür   | Ad  | Değer                     |
+| ----- | --- | ------------------------- |
+| A     | @   | `185.199.108.153`         |
+| A     | @   | `185.199.109.153`         |
+| A     | @   | `185.199.110.153`         |
+| A     | @   | `185.199.111.153`         |
+| CNAME | www | `basoglufurkan.github.io` |
+
+E-posta kayıtlarına (MX `kurumsaleposta.com`, SPF TXT) dokunulmamalıdır.
+DNS devreye girince GitHub → Settings → Pages → **Enforce HTTPS** işaretlenir.
